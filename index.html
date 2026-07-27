@@ -4,48 +4,107 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>joker123C"GaMe</title>
+
 <style>
 body{
-  font-family:Arial,sans-serif;
-  background:#f4f6f9;
-  display:flex;
-  justify-content:center;
+font-family:Arial,sans-serif;
+background:#f4f6f9;
+display:flex;
+justify-content:center;
 }
+
 .card{
-  margin-top:30px;
-  background:#fff;
-  width:360px;
-  padding:20px;
-  border-radius:15px;
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
+margin-top:30px;
+background:#fff;
+width:360px;
+padding:20px;
+border-radius:15px;
+box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
+
 input,button{
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:8px;
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:8px;
+font-size:18px;
 }
+
+input{
+border:2px solid #444;
+}
+
 button{
-  background:#2563eb;
-  color:#fff;
-  border:none;
+background:#2563eb;
+color:#fff;
+border:none;
+cursor:pointer;
+}
+
+#timer{
+text-align:center;
+font-size:28px;
+font-weight:bold;
+color:red;
+margin-top:20px;
 }
 </style>
 </head>
+
 <body>
 
 <div class="card">
+
 <h2>ชำระเงิน</h2>
 
-<p><strong>ชื่อบัญชี</strong><br>ttb กัลยรัตน์ สำอางค์</p>
+<p><strong>ชื่อบัญชี</strong><br>กัลยรัตน์ สำอางค์</p>
 
 <p><strong>เลขบัญชี</strong><br>9247287767</p>
 
-<input type="number" placeholder="กรอกจำนวนเงิน">
+<input type="number" id="amount" placeholder="กรอกจำนวนเงิน">
 
-<button>ยืนยัน</button>
+<button onclick="startTimer()">ยืนยัน</button>
+
+<h2 id="timer"></h2>
 
 </div>
+
+<script>
+let countdown;
+
+function startTimer(){
+
+const amount=document.getElementById("amount").value;
+
+if(amount==""){
+alert("กรุณากรอกจำนวนเงิน");
+return;
+}
+
+let time=600;
+
+clearInterval(countdown);
+
+countdown=setInterval(function(){
+
+let min=Math.floor(time/60);
+let sec=time%60;
+
+document.getElementById("timer").innerHTML=
+String(min).padStart(2,"0")+":"+
+String(sec).padStart(2,"0");
+
+if(time<=0){
+clearInterval(countdown);
+document.getElementById("timer").innerHTML="หมดเวลาชำระเงิน";
+}
+
+time--;
+
+},1000);
+
+}
+</script>
 
 </body>
 </html>
