@@ -1,162 +1,25 @@
 <!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ชำระเงิน</title>
-
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment</title>
 <style>
-body{
-    font-family:sans-serif;
-    background:#f5f5f5;
-    margin:0;
-    padding:20px;
-}
-
-.card{
-    max-width:400px;
-    margin:auto;
-    background:#fff;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 10px rgba(0,0,0,.1);
-}
-
-h2,h3{
-    text-align:center;
-}
-
-.box{
-    display:none;
-    margin-top:20px;
-}
-
-.box.active{
-    display:block;
-}
-
-.timer{
-    text-align:center;
-    color:red;
-    font-size:30px;
-    font-weight:bold;
-    margin:15px 0;
-}
-
-button{
-    width:100%;
-    padding:12px;
-    border:none;
-    background:#0066ff;
-    color:#fff;
-    border-radius:8px;
-    font-size:16px;
-    cursor:pointer;
-}
-
-input[type=number],
-input[type=file]{
-    width:100%;
-    padding:10px;
-    margin-top:8px;
-    margin-bottom:15px;
-}
-</style>
-</head>
-
-<body>
-
+body{margin:0;font-family:Arial;background:radial-gradient(circle at top,#444,#111);color:#fff}
+.card{max-width:420px;margin:30px auto;background:#1b1b1b;border:1px solid #7a5b1b;border-radius:18px;padding:20px;box-shadow:0 0 30px #000}
+h2,h3{text-align:center;color:#f2c86d}
+label{display:block;margin:8px 0}b{color:#f2c86d}
+input[type=number],input[type=file]{width:100%;padding:12px;border-radius:10px;border:1px solid #555;background:#2a2a2a;color:#fff;box-sizing:border-box}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(#ffe6a1,#d9a43a);font-size:18px;font-weight:bold}
+.box{display:none}.active{display:block}.timer{text-align:center;font-size:42px;color:#ff3b30;font-weight:bold;margin:15px}
+</style></head><body>
 <div class="card">
-
-<h2>เลือกวิธีชำระเงิน</h2>
-
-<label><input type="radio" name="pay" value="ttb" checked> TTB</label><br>
-<label><input type="radio" name="pay" value="c2c"> โอน C2C</label><br>
+<h2>ระบบชำระเงิน</h2>
+<label><input type="radio" name="pay" value="ttb" checked> TTB</label>
+<label><input type="radio" name="pay" value="c2c"> โอน C2C</label>
 <label><input type="radio" name="pay" value="slip"> ฝากแจ้งสลิป</label>
-
-<div id="ttb" class="box active">
-
-<h3>TTB</h3>
-
-<p><b>เลขบัญชี</b><br>9247287767</p>
-<p><b>ชื่อบัญชี</b><br>กัลยรัตน์ สำอางค์</p>
-
-จำนวนเงิน
-<input type="number" placeholder="กรอกจำนวนเงิน">
-
-<div class="timer" id="timer1">10:00</div>
-
-<button>ยืนยัน</button>
-
+<div id="ttb" class="box active"><h3>TTB</h3><p><b>เลขบัญชี</b><br>9247287767</p><p><b>ชื่อบัญชี</b><br>กัลยรัตน์ สำอางค์</p><input type="number" placeholder="กรอกจำนวนเงิน"><div class="timer" id=t>10:00</div><button>ยืนยันการชำระ</button></div>
+<div id="c2c" class="box"><h3>C2C</h3><p>เลขอ้างอิง : 862451</p><div class="timer" id=t2>10:00</div></div>
+<div id="slip" class="box"><h3>ฝากแจ้งสลิป</h3><input type=file accept="image/*"><div class="timer" id=t3>10:00</div></div>
 </div>
-
-<div id="c2c" class="box">
-
-<h3>โอน C2C</h3>
-
-<p>เลขอ้างอิง : 862451</p>
-<p>จำนวนเงิน : 0 บาท</p>
-
-<div class="timer" id="timer2">10:00</div>
-
-</div>
-
-<div id="slip" class="box">
-
-<h3>ฝากแจ้งสลิป</h3>
-
-<input type="file" accept="image/*">
-
-<div class="timer" id="timer3">10:00</div>
-
-</div>
-
-</div>
-
 <script>
-
-// เปลี่ยนหน้า
-document.querySelectorAll("input[name=pay]").forEach(r=>{
-    r.onclick=function(){
-
-        document.querySelectorAll(".box").forEach(b=>{
-            b.classList.remove("active");
-        });
-
-        document.getElementById(this.value).classList.add("active");
-    }
-});
-
-// นับถอยหลัง 10 นาที
-let time = 600;
-
-function countdown(){
-
-    let min = Math.floor(time/60);
-    let sec = time%60;
-
-    let txt =
-        String(min).padStart(2,"0")+":"+
-        String(sec).padStart(2,"0");
-
-    document.getElementById("timer1").innerHTML=txt;
-    document.getElementById("timer2").innerHTML=txt;
-    document.getElementById("timer3").innerHTML=txt;
-
-    if(time>0){
-        time--;
-    }else{
-        clearInterval(loop);
-        alert("หมดเวลาชำระเงิน");
-    }
-
-}
-
-countdown();
-
-let loop = setInterval(countdown,1000);
-
-</script>
-
-</body>
-</html>
+document.querySelectorAll("input[name=pay]").forEach(r=>r.onclick=()=>{document.querySelectorAll(".box").forEach(b=>b.classList.remove("active"));document.getElementById(r.value).classList.add("active");});
+let s=600;const ids=["t","t2","t3"];setInterval(()=>{let m=String(Math.floor(s/60)).padStart(2,"0"),ss=String(s%60).padStart(2,"0");ids.forEach(i=>document.getElementById(i).textContent=m+":"+ss);if(s>0)s--;},1000);
+</script></body></html>
