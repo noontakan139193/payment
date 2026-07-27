@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="th"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Payment</title>
+<style>
+body{margin:0;font-family:Arial;background:radial-gradient(circle at top,#444,#111);color:#fff}
+.card{max-width:420px;margin:30px auto;background:#1b1b1b;border:1px solid #7a5b1b;border-radius:18px;padding:20px;box-shadow:0 0 30px #000}
+h2,h3{text-align:center;color:#f2c86d}
+label{display:block;margin:8px 0}b{color:#f2c86d}
+input[type=number],input[type=file]{width:100%;padding:12px;border-radius:10px;border:1px solid #555;background:#2a2a2a;color:#fff;box-sizing:border-box}
+button{width:100%;padding:14px;border:0;border-radius:12px;background:linear-gradient(#ffe6a1,#d9a43a);font-size:18px;font-weight:bold}
+.box{display:none}.active{display:block}.timer{text-align:center;font-size:42px;color:#ff3b30;font-weight:bold;margin:15px}
+</style></head><body>
+<div class="card">
+<h2>ระบบชำระเงิน</h2>
+<label><input type="radio" name="pay" value="ttb" checked> TTB</label>
+<label><input type="radio" name="pay" value="c2c"> โอน C2C</label>
+<label><input type="radio" name="pay" value="slip"> ฝากแจ้งสลิป</label>
+<div id="ttb" class="box active"><h3>TTB</h3><p><b>เลขบัญชี</b><br>9247287767</p><p><b>ชื่อบัญชี</b><br>กัลยรัตน์ สำอางค์</p><input type="number" placeholder="กรอกจำนวนเงิน"><div class="timer" id=t>10:00</div><button>ยืนยันการชำระ</button></div>
+<div id="c2c" class="box"><h3>C2C</h3><p>เลขอ้างอิง : 862451</p><div class="timer" id=t2>10:00</div></div>
+<div id="slip" class="box"><h3>ฝากแจ้งสลิป</h3><input type=file accept="image/*"><div class="timer" id=t3>10:00</div></div>
+</div>
+<script>
+document.querySelectorAll("input[name=pay]").forEach(r=>r.onclick=()=>{document.querySelectorAll(".box").forEach(b=>b.classList.remove("active"));document.getElementById(r.value).classList.add("active");});
+let s=600;const ids=["t","t2","t3"];setInterval(()=>{let m=String(Math.floor(s/60)).padStart(2,"0"),ss=String(s%60).padStart(2,"0");ids.forEach(i=>document.getElementById(i).textContent=m+":"+ss);if(s>0)s--;},1000);
+</script></body></html>
