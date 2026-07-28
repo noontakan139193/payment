@@ -1,0 +1,11 @@
+<!DOCTYPE html><html lang='th'><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Demo</title>
+<style>body{margin:0;font-family:Arial;background:#111;color:#fff}.page{padding:20px;text-align:center}.hidden{display:none}button{padding:14px 24px;border-radius:10px;border:0;background:gold;font-weight:bold}#game{min-height:100vh;background:linear-gradient(#222,#000)}.eagle{font-size:90px}</style>
+</head><body>
+<div id='pay' class='page'><h2>ระบบชำระเงิน</h2><p>เลขบัญชี 9247287767</p><input placeholder='จำนวนเงิน'><br><br><button onclick='showGame()'>🎮 เข้าเล่น</button></div>
+<div id='game' class='page hidden'><div class='eagle'>🦅</div><h1>GOLD RUSH</h1><canvas id='c' width='300' height='300'></canvas><br><button onclick='spin()'>หมุนวงล้อ</button><h2 id='r'></h2></div>
+<script>
+function showGame(){pay.classList.add('hidden');game.classList.remove('hidden');draw();}
+const cvs=document.getElementById('c'),x=cvs.getContext('2d'),p=['10','20','50','100','200','500','1000','JP'];let a=0;
+function draw(){let arc=Math.PI*2/p.length;for(let i=0;i<p.length;i++){x.beginPath();x.moveTo(150,150);x.fillStyle=i%2?'gold':'orange';x.arc(150,150,140,arc*i,arc*(i+1));x.fill();x.save();x.translate(150,150);x.rotate(arc*i+arc/2);x.fillStyle='#000';x.fillText(p[i],70,0);x.restore();}}
+function spin(){let n=Math.floor(Math.random()*p.length);a+=360*5+n*45;c.style.transition='4s';c.style.transform='rotate('+a+'deg)';setTimeout(()=>r.textContent='ได้รับ '+p[n]+' เครดิต',4100);}
+</script></body></html>
